@@ -38,13 +38,13 @@ router.post('/addProd', async (req, res)=>{
     res.redirect('productos');
 });
 
-router.get('/deleteProd/:id', async (req, res)=>{
+router.delete('/deleteProd/:id', async (req, res)=>{
     const {id} = req.params;
     await pool.query('DELETE FROM producto WHERE id = ?', [id]);
-    res.redirect('/prod/productos');
+
 });
 
-router.post('/editProd/:id', async(req, res)=>{
+router.put('/editProd/:id', async(req, res)=>{
     const {id} = req.params;
     const {
         nombre,
@@ -75,7 +75,7 @@ router.get('/findById/:id', async(req, res)=>{
     
 });
 
-router.post('/addMasiva', async(req, res)=>{
+router.post('/masivo', async(req, res)=>{
     const lista  = req.body;
     var i = 0;
     try {

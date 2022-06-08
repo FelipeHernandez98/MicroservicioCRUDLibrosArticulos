@@ -5,13 +5,12 @@ const cors = require('cors');
 const app = express();
 const port = process.env.port || 4000;
 
-
+app.use(cors());
 app.set('port', port);
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(require('./src/routes'));
 
-app.use(cors());
 
 
 

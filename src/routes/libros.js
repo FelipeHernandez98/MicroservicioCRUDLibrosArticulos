@@ -70,10 +70,9 @@ router.post('/editLibro/:id_libro', async(req, res)=>{
         res.redirect('/lib/libros');    
 });
 
-router.get('/deleteLib/:id_libro', async(req, res)=>{
+router.delete('/deleteLib/:id_libro', async(req, res)=>{
     const { id_libro } = req.params;
     await pool.query('DELETE FROM libro WHERE id_libro= ?', [id_libro]);
-    res.redirect('/lib/libros'); 
 });
 
 router.get('/findById/:id', async(req, res)=>{
@@ -89,6 +88,38 @@ router.get('/findById/:id', async(req, res)=>{
         res.json(msg);
     }
     
+});
+
+router.post('/masivo', async (req, res) => {
+    const lista = req.body;
+    var i = 0;
+    try {
+        while (i < lista.length) {
+
+            const newLibro = {
+                id_libro: lista[i].id_libro,
+                titulo_libro: lista[i].titulo_libro,
+                isbn_libro: lista[i].isbn_libro,
+                fecha_publicacion_libro: lista[i].fecha_publicacion_libro,
+                autores_libro: lista[i].autores_libro,
+                editorial_libro: lista[i].editorial_libro,
+                lugar_publicacion_libro: lista[i].lugar_publicacion_libro,
+                certificado_creditos_libro: lista[i].certificado_creditos_libro,
+                certificado_investigacion_libro: lista[i].certificado_investigacion_libro,
+                numero_capitulos_libro: lista[i].numero_capitulos_libro
+            }
+
+            await pool.query('INSERT INTO libro SET ?', [newLibro]);
+
+            i++;
+        }
+
+        res.redirect('libros');
+
+    } catch (error) {
+        console.log(error);
+    }
+
 });
 
 module.exports = router;
