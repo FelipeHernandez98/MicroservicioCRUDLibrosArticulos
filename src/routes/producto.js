@@ -15,23 +15,23 @@ router.get('/productos', async (req, res)=>{
 
 router.post('/addProd', async (req, res)=>{
     const {
-        nombre,
+        tipo_prod,
+        categoria_general,
         cantidad,
         subcategoria,
         fecha,
         grupo,
-        programa,
-        facultad
+        programa
     } = req.body;
 
     const newProd ={      
-        nombre,
+        tipo_prod,
+        categoria_general,
         cantidad,
         subcategoria,
         fecha,
         grupo,
-        programa,
-        facultad
+        programa
     }
     console.log(newProd);
     await pool.query('INSERT INTO producto SET ?', [newProd]);
