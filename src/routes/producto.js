@@ -47,16 +47,16 @@ router.delete('/deleteProd/:id', async (req, res)=>{
 router.put('/editProd/:id', async(req, res)=>{
     const {id} = req.params;
     const {
-        nombre,
+        tipo_prod,
+        categoria_general,
         cantidad,
         subcategoria,
         fecha,
         grupo,
-        programa,
-        facultad
+        programa
     } = req.body;
 
-    await pool.query('UPDATE producto SET nombre = ?, cantidad = ?, subcategoria = ?, fecha = ?, grupo = ?, programa = ?, facultad =?  WHERE id = ?', [nombre, cantidad, subcategoria, fecha, grupo, programa, facultad, id]);
+    await pool.query('UPDATE producto SET tipo_prod = ?, categoria_general = ?, cantidad = ?, subcategoria = ?, fecha = ?, grupo = ?, programa =?  WHERE id = ?', [tipo_prod, categoria_general, cantidad, subcategoria, fecha, grupo, programa, id]);
     res.redirect('/prod/productos');
 });
 
